@@ -88,7 +88,7 @@ export default function Table({ data }) {
       </table>
 
       {/* Pagination */}
-      <div>
+      {/* <div>
         <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
           Previous
         </button>
@@ -98,7 +98,7 @@ export default function Table({ data }) {
         <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
           Next
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }

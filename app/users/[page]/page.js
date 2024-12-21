@@ -1,4 +1,12 @@
-[
+'use client';
+import React from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import Table from '../../components/Table';
+import { fetchUsers } from '@/lib/api';
+import { useRouter } from 'next/navigation';
+
+const data = [
     {
       "id": 1,
       "name": "Leanne Graham",
@@ -230,3 +238,65 @@
       }
     }
   ]
+const ITEMS_PER_PAGE = 5;
+
+export default function UsersPage({ params }) {
+  const router = useRouter();
+
+//   const [resolvedParams, setResolvedParams] = React.useState(null);
+
+//   React.useEffect(() => {
+//     // Resolve the `params` promise
+//     params.then((resolved) => {
+//       setResolvedParams(resolved);
+//     });
+//   }, [params]);
+
+//   if (!resolvedParams) {
+//     return <div>Loading...</div>;
+//   }
+const resolvedParams = React.use(params);
+  const currentPage = parseInt(resolvedParams.page, 10) || 1;
+
+  const { error, isLoading } = useQuery({
+    queryKey: ['users'],
+    queryFn: fetchUsers,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  // Paginate data
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedData = data.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const totalPages = Math.ceil(data.length / ITEMS_PER_PAGE);
+
+  const handlePageChange = (newPage) => {
+    router.push(`/users/${newPage}`);
+  };
+
+  return (
+    <div>
+      <h1>Users</h1>
+      <Table data={paginatedData} />
+      <div className="pagination">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Previous
+        </button>
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  );
+}
