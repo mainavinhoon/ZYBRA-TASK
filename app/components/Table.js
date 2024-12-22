@@ -24,7 +24,15 @@ import { Input } from "@/components/ui/input";
 
 const columns = [
   { accessorKey: 'id', header: 'ID' },
-  { accessorKey: 'name', header: 'Name' },
+  { accessorKey: 'name',  header: ({ column }) => (
+      <div className="  flex flex-col ">
+        <Input
+          placeholder="Name"
+          onChange={e => column.setFilterValue(e.target.value)}
+          className=" w-full placeholder-black  cursor-type m-0 p-0 w-fulltext-sm border-0"
+        />
+      </div>
+    ), },
   { accessorKey: 'username', header: 'Username' },
   { accessorKey: 'email', header: 'Email' },
   {
@@ -65,14 +73,14 @@ export default function Table({ data }) {
   return (
     <div className="overflow-hidden   rounded-md pb-4 shadow border ">
       {/* Global Search */}
-      <div className="flex flex-col-reverse gap-4 md:flex-row md:justify-between md:items-center mb-4 p-4">
+      <div className="flex flex-col-reverse gap-4 md:flex md:justify-between md:items-center mb-4 p-4">
   <Input
     value={globalFilter ?? ''}
     onChange={e => setGlobalFilter(e.target.value)}
     placeholder="Search all columns"
-    className="w-full md:w-[60%] px-4 py-2 border rounded-md border-gray-300 shadow-sm"
+    className="w-full md:w-full px-8 py-6  border rounded-md border-gray-300 shadow-sm"
   />
-  <h1 className="text-center text-xl md:text-3xl bg-red-400 border rounded-md px-4 md:px-10 py-1">
+  <h1 className="text-center w-full text-xl md:text-3xl bg-red-400 border rounded-md px-4 md:px-10 py-1">
     User - Management - Table
   </h1>
 </div>
@@ -92,7 +100,11 @@ export default function Table({ data }) {
            
                   >
                     
-                    {header.isPlaceholder ? null : header.column.columnDef.header}
+                    {header.isPlaceholder
+                        ? null
+                        : header.column.columnDef.header instanceof Function
+                        ? header.column.columnDef.header({ column: header.column })
+                        : header.column.columnDef.header}
                     <ArrowUpDown  onClick={header.column.getToggleSortingHandler()} className=" w-7 pl-3 ml-auto cursor-pointer select-none opacity-55 hover:opacity-100"/>
                     {header.column.getIsSorted() && (
                 
