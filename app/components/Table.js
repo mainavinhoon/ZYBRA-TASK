@@ -88,7 +88,7 @@ export default function Table({ data }) {
               headerGroup.headers.map(header => (
                 <TableCell key={header.id}  className="h-20  text-center hover:opacity-100">
                   <div
-                    className="flex px-4 py-3  rounded-md border"
+                    className="flex px-4 py-3 hover:bg-slate-50 rounded-md border"
            
                   >
                     
@@ -112,7 +112,7 @@ export default function Table({ data }) {
         </TableHeader>
         <TableBody className=" p-5  rounded-md border">
           {table.getRowModel().rows.map(row => (
-            <TableRow key={row.id} className=" hover:bg-gray-200  transition-colors">
+            <TableRow key={row.id} className=" hover:bg-slate-100  transition-colors">
               {row.getVisibleCells().map(cell => (
                 <TableCell key={cell.id} className="px-4 py-3 ">
                   {cell.renderValue()}

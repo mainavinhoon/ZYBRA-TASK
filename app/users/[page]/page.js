@@ -61,7 +61,7 @@ const resolvedParams = React.use(params);
           Next
         </Button>
       </div>
-      <div className='relative w-[100%] bottom-0 text-right p-1 '>Created By - <Link className=' text-blue-600 hover:to-blue-900' href={"https://github.com/mainavinhoon/ZYBRA-TASK"}>Navin Rawat</Link></div>
+      <div className='fixed w-[100%]  bottom-0 text-right p-1 '>Created By - <Link className=' text-blue-600 hover:to-blue-900' href={"https://github.com/mainavinhoon/ZYBRA-TASK"}>Navin Rawat</Link></div>
     </div>
   );
 }
