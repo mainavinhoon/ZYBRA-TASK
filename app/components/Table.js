@@ -63,21 +63,24 @@ export default function Table({ data }) {
   });
 
   return (
-    <div className="overflow-hidden rounded-md shadow border ">
+    <div className="overflow-hidden   rounded-md pb-4 shadow border ">
       {/* Global Search */}
-      <div className="flex justify-around items-center p-4 ">
-        <Input
-          value={globalFilter ?? ''}
-          onChange={e => setGlobalFilter(e.target.value)}
-          placeholder="Search all columns"
-          className="max-w-screen-md w-full px-4 py-2 border rounded-md border-gray-300 shadow-sm"
-        />
-         <h1 className='  text-center text-3xl  bg-red-400  border rounded-md  ml-auto  px-10 py-1'>User - Management - Table</h1>
-      </div>
+      <div className="flex flex-col-reverse gap-4 md:flex-row md:justify-between md:items-center mb-4 p-4">
+  <Input
+    value={globalFilter ?? ''}
+    onChange={e => setGlobalFilter(e.target.value)}
+    placeholder="Search all columns"
+    className="w-full md:w-[60%] px-4 py-2 border rounded-md border-gray-300 shadow-sm"
+  />
+  <h1 className="text-center text-xl md:text-3xl bg-red-400 border rounded-md px-4 md:px-10 py-1">
+    User - Management - Table
+  </h1>
+</div>
+
 
       {/* Table */}
 
-      <div className=" w-max m-5 rounded-md border"> 
+      <div className=" self-center w-[97%] m-4 rounded-md border"> 
       <StyledTable className="">
         <TableHeader className="">
           <TableRow>
