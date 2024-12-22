@@ -1,13 +1,11 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
-
-## Instructions to Run the Project Locally
-# Prerequisites
+# Instructions to Run the Project Locally :-
+## Prerequisites
 -Node.js (version 16 or later) should be installed on your machine.
+
 -npm (comes with Node.js) or Yarn to manage dependencies.
 
-# Steps to Run the Project :
+## Steps to Run the Project :
 1. Clone the repository:
   -git clone https://github.com/your-repo/user-management-table.git
   -cd user-management-table
@@ -18,7 +16,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
   -npm run dev
 5.Open the application: Open your browser and go to http://localhost:3000 to view the app.
 
-#Approach & Features
+## Approach & Features
 This project is built with Next.js and leverages the TanStack Table for dynamic table rendering, pagination, sorting, and filtering functionalities.
 
 1. Data Fetching
@@ -35,7 +33,7 @@ TanStack Table's useSortBy hook handles the sorting mechanism, allowing dynamic 
 Filters are implemented for the Name and Email columns. Users can type text into the filter inputs, which will narrow down the rows based on the column's data.
 The filtering is case-insensitive and updates dynamically.
 
-#Challenges Faced
+## Challenges Faced
 Pagination with Dynamic Routing:
 
 Initially, the pagination setup was tricky because the page parameter is passed via dynamic routes ([page]). Handling this correctly with useRouter required careful attention to manage the state and update the page number.
