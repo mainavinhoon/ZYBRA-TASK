@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import Table from '../../components/Table';
 import { fetchUsers } from '@/lib/api';
 import { useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const data = [
     {
@@ -243,18 +244,7 @@ const ITEMS_PER_PAGE = 5;
 export default function UsersPage({ params }) {
   const router = useRouter();
 
-//   const [resolvedParams, setResolvedParams] = React.useState(null);
 
-//   React.useEffect(() => {
-//     // Resolve the `params` promise
-//     params.then((resolved) => {
-//       setResolvedParams(resolved);
-//     });
-//   }, [params]);
-
-//   if (!resolvedParams) {
-//     return <div>Loading...</div>;
-//   }
 const resolvedParams = React.use(params);
   const currentPage = parseInt(resolvedParams.page, 10) || 1;
 
@@ -278,24 +268,29 @@ const resolvedParams = React.use(params);
 
   return (
     <div>
-      <h1>Users</h1>
+     
       <Table data={paginatedData} />
-      <div className="pagination">
-        <button
+      <div className=" flex items-center  justify-evenly m-4">
+        <Button
+             variant="outline"
+            size="lg"
           disabled={currentPage === 1}
           onClick={() => handlePageChange(currentPage - 1)}
         >
           Previous
-        </button>
+        </Button>
         <span>
           Page {currentPage} of {totalPages}
         </span>
-        <button
+        <Button
+        className=""
+         variant="outline"
+            size="lg"
           disabled={currentPage === totalPages}
           onClick={() => handlePageChange(currentPage + 1)}
         >
           Next
-        </button>
+        </Button>
       </div>
     </div>
   );

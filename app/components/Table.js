@@ -1,5 +1,8 @@
 'use client';
 
+import { ArrowUpDown, Ghost } from "lucide-react";
+import { useState } from 'react';
+import { Button } from "@/components/ui/button";
 import {
   useReactTable,
   getCoreRowModel,
@@ -7,7 +10,17 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
 } from '@tanstack/react-table';
-import { useState } from 'react';
+
+import {
+  Table as StyledTable,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
+import { Input } from "@/components/ui/input";
 
 const columns = [
   { accessorKey: 'id', header: 'ID' },
@@ -49,56 +62,64 @@ export default function Table({ data }) {
     getPaginationRowModel: getPaginationRowModel(),
   });
 
-
   return (
-    <div>
+    <div className="overflow-hidden rounded-md shadow border ">
       {/* Global Search */}
-      <input
-        value={globalFilter ?? ''}
-        onChange={e => setGlobalFilter(e.target.value)}
-        placeholder="Search all columns"
-        className="search-input"
-      />
+      <div className="flex justify-around items-center p-4 ">
+        <Input
+          value={globalFilter ?? ''}
+          onChange={e => setGlobalFilter(e.target.value)}
+          placeholder="Search all columns"
+          className="max-w-screen-md w-full px-4 py-2 border rounded-md border-gray-300 shadow-sm"
+        />
+         <h1 className='  text-center text-3xl  bg-red-400  border rounded-md  ml-auto  px-10 py-1'>User - Management - Table</h1>
+      </div>
 
       {/* Table */}
-      <table>
-        <thead>
-          {table.getHeaderGroups().map(headerGroup => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map(header => (
-                <th key={header.id}>
-                  <div onClick={header.column.getToggleSortingHandler()}>
-                    {header.isPlaceholder ? null : header.column.columnDef.header}
-                    {header.column.getIsSorted() ? (header.column.getIsSorted() === 'desc' ? ' 🔽' : ' 🔼') : null}
-                  </div>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map(row => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map(cell => (
-                <td key={cell.id}>{cell.renderValue()}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
-      {/* Pagination */}
-      {/* <div>
-        <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
-          Previous
-        </button>
-        <span>
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-        </span>
-        <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-          Next
-        </button>
-      </div> */}
+      <div className=" w-max m-5 rounded-md border"> 
+      <StyledTable className="">
+        <TableHeader className="">
+          <TableRow>
+            {table.getHeaderGroups().map(headerGroup =>
+              headerGroup.headers.map(header => (
+                <TableCell key={header.id}  className="h-20  text-center hover:opacity-100">
+                  <div
+                    className="flex px-4 py-3  rounded-md border"
+           
+                  >
+                    
+                    {header.isPlaceholder ? null : header.column.columnDef.header}
+                    <ArrowUpDown  onClick={header.column.getToggleSortingHandler()} className=" w-7 pl-3 ml-auto cursor-pointer select-none opacity-55 hover:opacity-100"/>
+                    {header.column.getIsSorted() && (
+                
+                        <ArrowUpDown
+                        className={` invisible w-0 ${
+                          header.column.getIsSorted() === 'desc' ? '' : 'rotate-180'
+                        }`}
+                     
+                   />
+                    )}
+                    
+                  </div>
+                </TableCell>
+              )),
+            )}
+          </TableRow>
+        </TableHeader>
+        <TableBody className=" p-5  rounded-md border">
+          {table.getRowModel().rows.map(row => (
+            <TableRow key={row.id} className=" hover:bg-gray-200  transition-colors">
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id} className="px-4 py-3 ">
+                  {cell.renderValue()}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </StyledTable>
+      </div>
     </div>
   );
 }
